@@ -1,0 +1,6 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+lib/Exception/Class/Try/Catch.pm
+t/Exception-Class-Try-Catch.t
