@@ -21,7 +21,10 @@ WriteMakefile(
 		'Test::More'             => '0',
 	},
 	META_MERGE => {
-		resources => {
+		'meta-spec' => {
+			version => 2,
+		},
+		'resources' => {
 			bugtracker => {
 				web  => 'https://github.com/pali/Exception-Class-Try-Catch/issues',
 			},
