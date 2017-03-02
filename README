@@ -1,7 +1,12 @@
 Exception-Class-Try-Catch
 =========================
 
-TODO DESCRIPTION
+DESCRIPTION
+
+Exception::Class::Try::Catch provides try/catch syntactic suggar from
+Try::Catch for Exception::Class object exceptions. See the POD of the
+lib/Exception/Class/Try/Catch.pm for details.
+
 
 INSTALLATION
 
