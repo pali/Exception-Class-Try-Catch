@@ -1,12 +1,9 @@
 Exception-Class-Try-Catch
 =========================
 
-DESCRIPTION
-
-Exception::Class::Try::Catch provides try/catch syntactic suggar from
+Exception::Class::Try::Catch provides try/catch syntactic sugar from
 Try::Catch for Exception::Class object exceptions. See the POD of the
 lib/Exception/Class/Try/Catch.pm for details.
-
 
 INSTALLATION
 

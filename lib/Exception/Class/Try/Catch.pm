@@ -40,7 +40,7 @@ __END__
 
 =head1 NAME
 
-Exception::Class::Try::Catch - L<Try::Catch> for L<Exception::Class>
+Exception::Class::Try::Catch - Try::Catch for Exception::Class
 
 =head1 SYNOPSIS
 
@@ -73,35 +73,33 @@ Exception::Class::Try::Catch - L<Try::Catch> for L<Exception::Class>
 
 =head1 DESCRIPTION
 
-C<Exception::Class::Try::Catch> provides C<try>/C<catch> syntactic suggar from
-L<Try::Catch> for L<Exception::Class> object exceptions.
+C<Exception::Class::Try::Catch> provides C<try>/C<catch> syntactic sugar from
+L<Try::Catch|Try::Catch> for L<Exception::Class|Exception::Class> object
+exceptions.
 
 In other words, the exception thrown in the C<try> block will always be an
-object of the L<Exception::Class::Base> class or its ancestor in the catch
-block. If you throw an exception of a different class, or just C<die> with an
-error message, the exception will be stringified (by the C<as_string> method,
-if available) and blessed into L<Exception::Class::Base>. Exceptions
-inheriting from L<Exception::Class::Base> remain unchanged.
+object of the L<Exception::Class::Base|Exception::Class::Base> class or its
+ancestor in the catch block. If you throw an exception of a different class,
+or just C<die> with an error message, the exception will be stringified
+(by the C<as_string> method, if available) and blessed into
+L<Exception::Class::Base|Exception::Class::Base>. Exceptions inheriting from
+L<Exception::Class::Base|Exception::Class::Base> remain unchanged.
 
-=head1 See Also
+=head1 SEE ALSO
 
-=over 4
-
-=item L<Try::Catch>
-
-=item L<Exception::Class>
-
-=back
+L<Try::Catch>,
+L<Exception::Class>
 
 =head1 AUTHOR
 
-Pali, E<lt>pali@cpan.orgE<gt>
+Pali E<lt>pali@cpan.orgE<gt>
 
-=head1 LICENSE
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2017 by Pali E<lt>pali@cpan.orgE<gt>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.6.0 or,
 at your option, any later version of Perl 5 you may have available.
-
 
 =cut
