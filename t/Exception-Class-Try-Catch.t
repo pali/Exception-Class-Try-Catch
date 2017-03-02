@@ -143,11 +143,11 @@ try {
 };
 
 package My::NotExceptionClass::WithStringOverload;
-sub new { return bless(\$_[1], $_[0]); }
+sub new { return bless(\(my $o = $_[1]), $_[0]); }
 use overload '""' => sub { return ${$_[0]}; };
 
 package My::NotExceptionClass::WithStringMethod;
-sub new { return bless(\$_[1], $_[0]); }
+sub new { return bless(\(my $o = $_[1]), $_[0]); }
 sub as_string { return ${$_[0]}; }
 
 package My::NotExceptionClass;
