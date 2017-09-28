@@ -19,7 +19,7 @@ $Carp::Internal{+__PACKAGE__} = 1;
 our @EXPORT_OK = qw(try catch);
 our @EXPORT = @EXPORT_OK;
 
-sub catch (&;@) {
+sub catch (&) {
 	my $block = $_[0];
 	$_[0] = sub {
 		my $error = $_[0];
