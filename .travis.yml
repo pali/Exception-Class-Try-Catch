@@ -16,6 +16,20 @@ perl:
   - "5.24-shrplib"
   - "5.26"
 
+matrix:
+  include:
+    - perl: system
+      dist: precise
+      addons: &addons
+        apt:
+          packages:
+            - perl
+            - cpanminus
+    - perl: system
+      dist: trusty
+      addons:
+        <<: *addons
+
 install:
   - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
 
