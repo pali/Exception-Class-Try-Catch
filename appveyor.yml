@@ -28,7 +28,7 @@ install:
 
 build_script:
   - perl Makefile.PL
-  - perl -MConfig -e "exec $Config{make}"
+  - perl -MConfig -e "system({$Config{make}} $Config{make}, @ARGV); exit((($? >> 8) | ($? & 127)) & 255)"
 
 test_script:
-  - perl -MConfig -e "exec $Config{make}, 'test', 'TEST_VERBOSE=1'"
+  - perl -MConfig -e "system({$Config{make}} $Config{make}, @ARGV); exit((($? >> 8) | ($? & 127)) & 255)" test TEST_VERBOSE=1
