@@ -18,17 +18,20 @@ perl:
 
 matrix:
   include:
-    - perl: system
+    - perl: system_precise
       dist: precise
       addons: &addons
         apt:
           packages:
             - perl
             - cpanminus
-    - perl: system
+    - perl: system_trusty
       dist: trusty
       addons:
         <<: *addons
+
+before_install:
+  - if [[ $TRAVIS_PERL_VERSION =~ ^system ]]; then export PERL5LIB=$HOME/perl5/lib/perl5; fi
 
 install:
   - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
