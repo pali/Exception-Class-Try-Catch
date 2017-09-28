@@ -44,6 +44,8 @@ Exception::Class::Try::Catch - Try::Catch for Exception::Class
 
 =head1 SYNOPSIS
 
+  use Exception::Class::Try::Catch;
+
   try {
       My::Exception::Class->throw('my error');
   } catch {
