@@ -7,13 +7,17 @@ cache:
 
 environment:
   matrix:
+    - perl: "5.8.9.5"
+    - perl: "5.10.1.5"
+    - perl: "5.12.3.20180709"
     - perl: "5.14.4.1"
     - perl: "5.16.3.20170202"
     - perl: "5.18.4.1"
     - perl: "5.20.3.3"
     - perl: "5.22.3.1"
-    - perl: "5.24.1.1"
-    - perl: "5.26.0.1"
+    - perl: "5.24.4.1"
+    - perl: "5.26.2.1"
+    - perl: "5.28.0.1"
     - perl: system
 
 platform:
@@ -23,6 +27,10 @@ platform:
 matrix:
   exclude:
     - platform: x64
+      perl: "5.8.9.5"
+    - platform: x64
+      perl: "5.10.1.5"
+    - platform: x64
       perl: system
 
 install:
@@ -31,7 +39,7 @@ install:
   - if /I not %perl% == system cinst StrawberryPerl --version %perl% %x86% --allow-empty-checksums
   - if /I not %perl% == system path C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;C:\strawberry\c\bin;%PATH%
   - perl -V
-  - if /I %perl% == system cpan -T App::cpanminus
+  - cpan -T App::cpanminus
   - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
 
 build_script:
