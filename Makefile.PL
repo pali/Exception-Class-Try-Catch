@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 use ExtUtils::MakeMaker;
 WriteMakefile(
 	NAME             => 'Exception::Class::Try::Catch',
