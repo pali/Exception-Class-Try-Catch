@@ -31,6 +31,10 @@ matrix:
       dist: trusty
       addons:
         <<: *addons
+    - perl: system_xenial
+      dist: xenial
+      addons:
+        <<: *addons
 
 before_install:
   - if [[ $TRAVIS_PERL_VERSION =~ ^system ]]; then export PERL5LIB=$HOME/perl5/lib/perl5; fi
