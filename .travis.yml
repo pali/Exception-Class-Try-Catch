@@ -2,45 +2,30 @@ language: perl
 
 perl:
   - "5.8"
-  - "5.10"
-  - "5.12"
-  - "5.14"
-  - "5.16"
-  - "5.18"
-  - "5.18-shrplib"
-  - "5.20"
-  - "5.20-shrplib"
-  - "5.22"
-  - "5.22-shrplib"
-  - "5.24"
-  - "5.24-shrplib"
-  - "5.26"
-  - "5.26-shrplib"
-  - "5.28"
 
 matrix:
   include:
-    - perl: system_precise
-      dist: precise
-      addons: &addons
-        apt:
-          packages:
-            - perl
-            - cpanminus
-    - perl: system_trusty
-      dist: trusty
-      addons:
-        <<: *addons
-    - perl: system_xenial
-      dist: xenial
-      addons:
-        <<: *addons
+    - perl: system_windows
+      os: windows
+      language: shell
 
 before_install:
   - if [[ $TRAVIS_PERL_VERSION =~ ^system ]]; then export PERL5LIB=$HOME/perl5/lib/perl5; fi
+  - perl -V
+  - find /usr/lib/perl5 || true
+  - find /usr/share/perl5 || true
+#  - if ! perl -e 'exit ! eval { require CPAN }'; then
+  - wget https://cpan.metacpan.org/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-7.34.tar.gz -O /tmp/ExtUtils-MakeMaker-7.34.tar.gz ;
+  - ( cd /tmp; tar -xf ExtUtils-MakeMaker-7.34.tar.gz ; cd ExtUtils-MakeMaker-7.34 ; perl Makefile.PL PREFIX=$HOME/perl5 ) ;
+  - cinst make ;
+  - wget -O - http://cpanmin.us | PERL5LIB=$PERL5LIB:/tmp/ExtUtils-MakeMaker-7.34/lib:/tmp/ExtUtils-MakeMaker-7.34/inc perl - --self-upgrade --verbose --force --notest
+  - export PATH=/usr/bin/site_perl:$PATH ;
+  - alias cpanm='perl /usr/bin/site_perl/cpanm' ;
+  - perl /usr/bin/site_perl/cpanm ExtUtils::Manifest ExtUtils::MakeMaker ;
+#  - fi
 
 install:
-  - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
+  - perl /usr/bin/site_perl/cpanm --verbose --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
 
 script:
   - perl Makefile.PL
