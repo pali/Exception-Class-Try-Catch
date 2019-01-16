@@ -40,7 +40,7 @@ install:
   - if /I not %perl% == system if /I %PLATFORM% == x86 (set x86=--forcex86) else (set "x86= ")
   - if /I not %perl% == system choco config set cacheLocation C:\ProgramData\chocolatey\cache
   - if /I not %perl% == system cinst StrawberryPerl --version %perl% %x86% --allow-empty-checksums
-  - if /I not %perl% == system refreshenv
+  - refreshenv
   - perl -V
   - cpan -T App::cpanminus
   - perl -MExtUtils::MakeMaker=6.58 -e "" || cpanm --quiet --notest ExtUtils::MakeMaker@6.58
