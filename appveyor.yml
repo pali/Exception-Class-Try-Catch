@@ -34,12 +34,16 @@ matrix:
       perl: system
 
 install:
+  - ren C:\MinGW MinGW_do_not_use
+  - ren "C:\\Program Files\\Git\\usr\\bin\\perl.exe" perl.exe_do_not_use
+  - if /I not %perl% == system ren C:\Perl Perl_do_not_use
   - if /I not %perl% == system if /I %PLATFORM% == x86 (set x86=--forcex86) else (set "x86= ")
   - if /I not %perl% == system choco config set cacheLocation C:\ProgramData\chocolatey\cache
   - if /I not %perl% == system cinst StrawberryPerl --version %perl% %x86% --allow-empty-checksums
-  - if /I not %perl% == system path C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;C:\strawberry\c\bin;%PATH%
+  - if /I not %perl% == system refreshenv
   - perl -V
   - cpan -T App::cpanminus
+  - perl -MExtUtils::MakeMaker=6.58 -e "" || cpanm --quiet --notest ExtUtils::MakeMaker@6.58
   - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
 
 build_script:
