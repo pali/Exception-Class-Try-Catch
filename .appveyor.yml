@@ -1,5 +1,3 @@
-version: 1.0.{build}
-
 cache:
   - C:\ProgramData\chocolatey\cache
   - C:\strawberry\cpan\sources
@@ -18,6 +16,7 @@ environment:
     - perl: "5.24.4.1"
     - perl: "5.26.2.1"
     - perl: "5.28.0.1"
+    - perl: cygwin
     - perl: system
 
 platform:
@@ -37,13 +36,22 @@ install:
   - ren C:\MinGW MinGW_do_not_use
   - ren "C:\\Program Files\\Git\\usr\\bin\\perl.exe" perl.exe_do_not_use
   - if /I not %perl% == system ren C:\Perl Perl_do_not_use
-  - if /I not %perl% == system if /I %PLATFORM% == x86 (set x86=--forcex86) else (set "x86= ")
-  - if /I not %perl% == system choco config set cacheLocation C:\ProgramData\chocolatey\cache
-  - if /I not %perl% == system cinst StrawberryPerl --version %perl% %x86% --allow-empty-checksums
+  - if /I %perl% == cygwin if /I %PLATFORM% == x86 (set cygwin_path=C:\cygwin) else (set cygwin_path=C:\cygwin64)
+  - if /I %perl% == cygwin if /I %PLATFORM% == x86 (set cygwin_setup=%cygwin_path%\setup-x86.exe) else (set cygwin_setup=%cygwin_path%\setup-x86_64.exe)
+  - if /I %perl% == cygwin %cygwin_setup% --quiet-mode --packages perl
+  - if /I %perl% == cygwin echo perl %%~dpn0 %%* > %cygwin_path%\bin\cpan.bat
+  - if /I %perl% == cygwin echo perl /usr/local/bin/cpanm %%* > %cygwin_path%\bin\cpanm.bat
+  - if /I not %perl% == system if /I not %perl% == cygwin if /I %PLATFORM% == x86 (set cinst_args=--forcex86) else (set "cinst_args= ")
+  - if /I not %perl% == system if /I not %perl% == cygwin choco config set cacheLocation C:\ProgramData\chocolatey\cache
+  - if /I not %perl% == system if /I not %perl% == cygwin cinst StrawberryPerl --version %perl% %cinst_args%
   - refreshenv
+  - if /I %perl% == cygwin path %cygwin_path%\bin;%PATH%
+  - if /I %perl% == cygwin set SHELL=/bin/bash
+  - if /I %perl% == cygwin cpan < nul
   - perl -V
   - cpan -T App::cpanminus
-  - perl -MExtUtils::MakeMaker=6.58 -e "" || cpanm --quiet --notest ExtUtils::MakeMaker@6.58
+  - perl "-MExtUtils::MakeMaker 6.58" -e "" || cpanm --quiet --notest ExtUtils::MakeMaker@6.58
+  - perl "-MCPAN::Meta 2.112580" -e "" || cpanm --quiet --notest CPAN::Meta@2.112580
   - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
 
 build_script:
