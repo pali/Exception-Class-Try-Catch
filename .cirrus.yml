@@ -6,7 +6,7 @@ freebsd_task:
     - pkg install -y perl5
     - perl -V
     - cpan -T App::cpanminus
-    - perl '-MExtUtils::MakeMaker 6.58' -e '' || cpanm --quiet --notest ExtUtils::MakeMaker@6.58
+    - perl '-MExtUtils::MakeMaker 6.68' -e '' || cpanm --quiet --notest ExtUtils::MakeMaker@6.68
     - perl '-MCPAN::Meta 2.112580' -e '' || cpanm --quiet --notest CPAN::Meta@2.112580
     - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
 

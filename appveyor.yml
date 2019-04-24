@@ -43,7 +43,7 @@ install:
   - refreshenv
   - perl -V
   - cpan -T App::cpanminus
-  - perl -MExtUtils::MakeMaker=6.58 -e "" || cpanm --quiet --notest ExtUtils::MakeMaker@6.58
+  - perl "-MExtUtils::MakeMaker 6.68" -e "" || cpanm --quiet --notest ExtUtils::MakeMaker@6.68
   - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
 
 build_script:

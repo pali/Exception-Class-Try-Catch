@@ -40,7 +40,7 @@ before_install:
   - if [[ $TRAVIS_PERL_VERSION =~ ^system ]]; then export PERL5LIB=$HOME/perl5/lib/perl5; fi
 
 install:
-  - perl -MExtUtils::MakeMaker=6.58 -e "" || cpanm --quiet --notest ExtUtils::MakeMaker@6.58
+  - perl '-MExtUtils::MakeMaker 6.68' -e '' || cpanm --quiet --notest ExtUtils::MakeMaker@6.68
   - cpanm --quiet --notest --skip-satisfied --installdeps --with-configure --with-develop --with-recommends --with-suggests .
 
 script:
