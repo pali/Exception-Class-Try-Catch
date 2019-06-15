@@ -46,7 +46,7 @@ matrix:
 
 before_install:
   - if [[ $TRAVIS_PERL_VERSION =~ ^system ]]; then export PERL5LIB=$HOME/perl5/lib/perl5; fi
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then mv /usr/bin/perl.exe /usr/bin/perl.exe_do_not_use; mv /bin/perl /bin/perl_do_not_use; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then which perl; echo $PATH; mv /usr/bin/perl.exe /usr/bin/perl.exe_do_not_use; mv /bin/perl.exe /bin/perl.exe_do_not_use; fi
   - if [ "$TRAVIS_OS_NAME" = "windows" ]; then cinst StrawberryPerl --version "$TRAVIS_PERL_VERSION" --allow-empty-checksums; fi
   - if [ "$TRAVIS_OS_NAME" = "windows" ]; then export PATH="/c/Strawberry/perl/site/bin:/c/Strawberry/perl/bin:/c/Strawberry/c/bin:$PATH"; fi
   - if [ "$TRAVIS_OS_NAME" = "windows" ]; then perl -V; cpan -T App::cpanminus; fi
