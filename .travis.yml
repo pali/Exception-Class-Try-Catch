@@ -2,21 +2,21 @@ language: perl
 
 perl:
   - "5.8"
-  - "5.10"
-  - "5.12"
-  - "5.14"
-  - "5.16"
-  - "5.18"
-  - "5.18-shrplib"
-  - "5.20"
-  - "5.20-shrplib"
-  - "5.22"
-  - "5.22-shrplib"
-  - "5.24"
-  - "5.24-shrplib"
-  - "5.26"
-  - "5.26-shrplib"
-  - "5.28"
+#  - "5.10"
+#  - "5.12"
+#  - "5.14"
+#  - "5.16"
+#  - "5.18"
+#  - "5.18-shrplib"
+#  - "5.20"
+#  - "5.20-shrplib"
+#  - "5.22"
+#  - "5.22-shrplib"
+#  - "5.24"
+#  - "5.24-shrplib"
+#  - "5.26"
+#  - "5.26-shrplib"
+#  - "5.28"
 
 matrix:
   include:
@@ -35,9 +35,14 @@ matrix:
       dist: xenial
       addons:
         <<: *addons
+    - perl: "5.18.4.1"
+      os: windows
+      language: shell
 
 before_install:
   - if [[ $TRAVIS_PERL_VERSION =~ ^system ]]; then export PERL5LIB=$HOME/perl5/lib/perl5; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then cinst StrawberryPerl --version "$TRAVIS_PERL_VERSION" --allow-empty-checksums; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then export PATH="$(powershell -Command '("Process", "Machine" | % { [Environment]::GetEnvironmentVariable("PATH", $_) -Split ";" -Replace "\\$", "" } | Select -Unique | % { cygpath $_ }) -Join ":"')"; fi
 
 install:
   - perl '-MExtUtils::MakeMaker 6.68' -e '' || cpanm --quiet --notest ExtUtils::MakeMaker@6.68
