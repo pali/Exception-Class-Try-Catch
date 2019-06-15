@@ -58,5 +58,5 @@ install:
 
 script:
   - perl Makefile.PL
-  - perl -MConfig -e "system({$Config{make}} $Config{make}, @ARGV); exit((($? >> 8) | ($? & 127)) & 255)"
-  - perl -MConfig -e "system({$Config{make}} $Config{make}, @ARGV); exit((($? >> 8) | ($? & 127)) & 255)" test TEST_VERBOSE=1
+  - perl -MConfig -e 'system({$Config{make}} $Config{make}, @ARGV); exit((($? >> 8) | ($? & 127)) & 255)'
+  - perl -MConfig -e 'system({$Config{make}} $Config{make}, @ARGV); exit((($? >> 8) | ($? & 127)) & 255)' test TEST_VERBOSE=1
